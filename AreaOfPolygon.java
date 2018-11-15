@@ -11,7 +11,7 @@ class AreaOfPolygon {
 				area += x[i] * y[0];
 				area += y[i] * x[0];
 			}
-      		else {
+			else {
 				area += x[i] * y[i+1];
 				area += y[i] * x[i+1];
 			}
