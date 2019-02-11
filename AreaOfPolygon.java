@@ -7,16 +7,10 @@ class AreaOfPolygon {
 		double area = 0;
 		
 		for (int i = 0; i < n; i++) {
-			if (i == n-1) {
-				area += x[i] * y[0];
-				area += y[i] * x[0];
-			}
-			else {
-				area += x[i] * y[i+1];
-				area += y[i] * x[i+1];
-			}
+			area += x[i] * y[(i + 1) % n];
+			area += y[i] * x[(i + 1) % n];
 		}
 		
-		area /= 2.0;
+		area /= 2;
 	}
 }
