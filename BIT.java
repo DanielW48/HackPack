@@ -6,7 +6,7 @@ public class BIT{
     arr = new long[n + 1];
   }
   void update(int idx, long v){
-    while(idx < arr.length){
+    while(idx <= n){
       arr[idx] += v;
       idx += (idx & -idx);
     }
