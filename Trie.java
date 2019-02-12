@@ -38,11 +38,11 @@ class Trie{
                 if(!children.containsKey(i)) continue;
                 
                 Node currChild = children.get(i);
-                if(numWordsSeen + currChild.size >= in){
+                if(numWordsSeen + currChild.numWords >= in){
                     return currChild.l + currChild.getNthNode(in - numWordsSeen);
                 }
                 
-                numWordsSeen += currChild.size;
+                numWordsSeen += currChild.numWords;
             }
             return "";
         }
