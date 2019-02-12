@@ -2,20 +2,20 @@ class Trie{
     public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
-        Node root = new Node(-1);
+        node root = new node(-1);
         
     }
-    class Node{
+    class node{
         char l;
         boolean terminal = false;
-        int size = 0;
-        HashMap<Integer, Node> children = new HashMap<>();
+        int numWords = 0;
+        HashMap<Integer, node> children = new HashMap<>();
         
-        Node(int lIn){
+        node(int lIn){
             l = (char) (lIn + 'a');
         }
         void push(int[] word, int currLet){
-            size++;
+            numWords++;
             
             if(currLet == word.length){
                 terminal = true;
@@ -23,7 +23,7 @@ class Trie{
             }
             
             if(!children.containsKey(word[currLet])){
-                children.put(word[currLet], new Node(word[currLet]));
+                children.put(word[currLet], new node(word[currLet]));
             }
             
             children.get(word[currLet]).push(word, currLet + 1);
