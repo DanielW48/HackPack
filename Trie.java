@@ -1,45 +1,45 @@
-class Trie{
-    public static void main(String[] args) throws IOException {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        node root = new node(-1);
+class Trie {
+    static node root = new node(-1);
+    static int[] alphOrder = new int[26];
+    static void main(String[] args){
+        for(int i = 0; i < 26; i++) alphOrder[i] = i;
         
     }
-    class node{
+    static class node{
         char l;
         boolean terminal = false;
         int numWords = 0;
-        HashMap<Integer, node> children = new HashMap<>();
-        
+        node[] children = new node[26];
         node(int lIn){
             l = (char) (lIn + 'a');
         }
-        void push(int[] word, int currLet){
+        void push(int[] word, int idx){
             numWords++;
             
-            if(currLet == word.length){
+            if(idx == word.length){
                 terminal = true;
                 return;
             }
             
-            if(!children.containsKey(word[currLet])){
-                children.put(word[currLet], new node(word[currLet]));
-            }
+            if(children[word[idx]] == null) children[word[idx]] = new node(word[idx]);
             
-            children.get(word[currLet]).push(word, currLet + 1);
+            children[word[idx]].push(word, idx + 1);
         }
-        String getNthNode(int in){
-            if(in == 1 && terminal){
-                return "";
-            }
+        int getNumWords(int[] word, int idx){
+            if(idx == word.length) return numWords;
+            if(children[word[idx]] == null) return 0;
+            return children[word[idx]].getNumWords(word, idx + 1);
+        }
+        String getNthString(int in){
+            if(in == 1 && terminal) return "";
             
             int numWordsSeen = terminal ? 1 : 0;
             for(int i : alphOrder){
-                if(!children.containsKey(i)) continue;
+                if(children[i] == null) continue;
                 
-                Node currChild = children.get(i);
+                node currChild = children[i];
                 if(numWordsSeen + currChild.numWords >= in){
-                    return currChild.l + currChild.getNthNode(in - numWordsSeen);
+                    return currChild.l + currChild.getNthString(in - numWordsSeen);
                 }
                 
                 numWordsSeen += currChild.numWords;
