@@ -1,8 +1,8 @@
 class Trie {
     static node root = new node(-1);
-    static int[] alphOrder = new int[26];
+    static int[] ord = new int[26];
     static void main(String[] args){
-        for(int i = 0; i < 26; i++) alphOrder[i] = i;
+        for(int i = 0; i < 26; i++) ord[i] = i;
         
     }
     static class node{
@@ -34,7 +34,7 @@ class Trie {
             if(in == 1 && terminal) return "";
             
             int numWordsSeen = terminal ? 1 : 0;
-            for(int i : alphOrder){
+            for(int i : ord){
                 if(children[i] == null) continue;
                 
                 node currChild = children[i];
