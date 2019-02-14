@@ -7,7 +7,7 @@ class Trie {
     }
     static class node{
         char l;
-        boolean terminal = false;
+        boolean term = false;
         int numWords = 0;
         node[] children = new node[26];
         node(int lIn){
@@ -17,7 +17,7 @@ class Trie {
             numWords++;
             
             if(idx == word.length){
-                terminal = true;
+                term = true;
                 return;
             }
             
@@ -31,18 +31,18 @@ class Trie {
             return children[word[idx]].getNumWords(word, idx + 1);
         }
         String getNthString(int in){
-            if(in == 1 && terminal) return "";
+            if(in == 1 && term) return "";
             
-            int numWordsSeen = terminal ? 1 : 0;
+            int numSeen = term ? 1 : 0;
             for(int i : ord){
                 if(children[i] == null) continue;
                 
-                node currChild = children[i];
-                if(numWordsSeen + currChild.numWords >= in){
-                    return currChild.l + currChild.getNthString(in - numWordsSeen);
+                node next = children[i];
+                if(numSeen + next.numWords >= in){
+                    return next.l + next.getNthString(in - numSeen);
                 }
                 
-                numWordsSeen += currChild.numWords;
+                numSeen += next.numWords;
             }
             return "";
         }
