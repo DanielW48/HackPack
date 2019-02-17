@@ -9,7 +9,7 @@ class DSU {
 	        height[i] = 1;
 	    }
 	    
-		PriorityQueue<edge> pq = new PriorityQueue<>();
+	    PriorityQueue<edge> pq = new PriorityQueue<>();
 	    long sum = 0;
 	    int max = 0, numConnd = 1;
 	    while(!pq.isEmpty() && numConnd < n){
