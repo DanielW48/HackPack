@@ -1,5 +1,4 @@
-import java.util.*;
-public class Djikstras {
+class Djikstras {
     static int n, s;
     static ArrayDeque[] edges;
     static long[] d;
