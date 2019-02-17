@@ -3,4 +3,5 @@
 3) Longest Increasing Subsequence (with binary search, SPOJ)
 4) Longest Common Subsequence (Lockheed CodeQuest ?, Stetson 2018)
 5) Convex Hull! (SI 2018 Contest 5, fence one)
-5) Important notes (Bidirectional edges v Unidirectional, xor properties, etc.)
+6) Important notes (Bidirectional edges v Unidirectional, xor properties, etc.)
+7) Floyd warshalls (kattis problem from last year in spencers lecture...)
