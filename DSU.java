@@ -7,9 +7,9 @@ class DSU {
 	    for(int i = 0; i < n; ++i) root[i] = i;
 	    
 	    long sum = 0;
-	    int max = 0;
+	    int max = 0, numConnd = 1;
 	    PriorityQueue<edge> pq = new PriorityQueue<>();
-	    while(!pq.isEmpty()){
+	    while(!pq.isEmpty() && numConnd < n){
 	        edge curr = pq.poll();
 	        if(union(curr.u, curr.v)){
 	            sum += curr.w;
