@@ -4,16 +4,20 @@ class DSU {
 	public static void main(String[] args){
 	    root = new int[n];
 	    height = new int[n];
-	    for(int i = 0; i < n; ++i) root[i] = i;
+	    for(int i = 0; i < n; ++i){
+	        root[i] = i;
+	        height[i] = 1;
+	    }
 	    
+		PriorityQueue<edge> pq = new PriorityQueue<>();
 	    long sum = 0;
 	    int max = 0, numConnd = 1;
-	    PriorityQueue<edge> pq = new PriorityQueue<>();
 	    while(!pq.isEmpty() && numConnd < n){
 	        edge curr = pq.poll();
 	        if(union(curr.u, curr.v)){
 	            sum += curr.w;
 	            max = curr.w;
+	            ++numConnd;
 	        }
 	    }
 	}
@@ -26,14 +30,10 @@ class DSU {
 	    int parY = getPar(y);
 	    if(parX == parY) return false;
 	    
-	    if(height[parX] < height[parY]) {
-	        root[parY] = parX;
-	        height[parX] += height[parY]+1;
-	    }
-	    else {
-	        root[parX] = parY;
-	        height[parY] += height[parX]+1;
-	    }
+	    if(height[parX] > height[parY]) parX = parX ^ parY ^ (parY = parX);
+	    
+	    root[parY] = parX;
+	    height[parX] += height[parY];
 	    return true;
 	}
 	static class edge implements Comparable<edge>{
