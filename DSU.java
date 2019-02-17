@@ -5,7 +5,7 @@ class DSU {
 	    root = new int[n];
 	    height = new int[n];
 	    for(int i = 0; i < n; ++i) root[i] = i;
-	    
+	    w
 	    long sum = 0;
 	    int max = 0;
         PriorityQueue<edge> pq = new PriorityQueue<>();
