@@ -1,9 +1,8 @@
 public class DSU2 {
+    static int n, m; //vertices, edges
     static int[] par, height;
     static ArrayDeque[] set;
     public static void main(String[] args){
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt(), m = sc.nextInt();
         par = new int[n];
         height = new int[n];
         set = new ArrayDeque[n];
@@ -11,21 +10,20 @@ public class DSU2 {
         for(int i = 0; i < n; ++i){
             par[i] = i;
             height[i] = 1;
-            set[i] = new ArrayDeque<edge>();
+            set[i] = new ArrayDeque<>();
             set[i].push(i);
         }
         
         PriorityQueue<edge> edges = new PriorityQueue<>();
-        //scan in edges
-        
-        int numConnd = 1;
-        int out = 0;
-        while(!edges.isEmpty()){
+        long sum = 0;
+        int max = 0, numConnd = 1;
+        while(!edges.isEmpty() && numConnd < n){
             edge curr = edges.poll();
-            if(!union(curr.u, curr.v)) continue;
-            
-            out += curr.w;
-            if(++numConnd == n) break;
+            if(union(curr.u, curr.v)){
+                sum += curr.w;
+                max = curr.w;
+                ++numConnd;
+            }
         }
     }
     static boolean union(int a, int b){
