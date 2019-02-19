@@ -5,3 +5,5 @@
 5) Convex Hull! (SI 2018 Contest 5, fence one)
 6) Important notes (Bidirectional edges v Unidirectional, xor properties, etc.)
 7) Floyd warshalls (kattis problem from last year in spencers lecture...)
+8) Fix seg tree... (add lazy value and segment addition, haybales from SI 2018)
+9) Mo's Algorithm (Codeforces Powerful Arrays)
