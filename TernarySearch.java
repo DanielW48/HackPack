@@ -1,32 +1,23 @@
 class TernarySearch {
-
-	static double xf = 0;
-	public static void main(String[] args) {
-
-		double t = ts(1,100);
-		
-		System.out.println(t +" "+  xf);
-		
+	public static void main (String[] args){
+	    double l = -(1e9 + 3), r = 1e9 + 3;
+	    for(int i = 0; i < 200; ++i){
+	        double g1 = (l * 2 + r) / 3;
+	        double g2 = (l + r * 2) / 3;
+	        
+	        //if finding min
+	        if(go(g1) > go(g2)) l = g1;
+	        else r = g2;
+	        
+	        //if finding max
+	        if(go(g1) > go(g2)) r = g2;
+	        else l = g1;
+	    }
+	    
+	    double out = go(l);
 	}
-
-	static double func(double c) { 
-    //(WHAT EVER YOU WANT TO COMPARE)
-    return c*c;
+	static double go(double in){
+	    //function you're min/max ing
+	    return -Math.pow(in - 4, 2) + 3;
 	}
-
-
-	static double ts(double start, double end) {
-		double l = start, r = end;
-
-		for(int i=0; i<250; i++) {
-			double l1 = (l*2+r)/3;
-			double l2 = (l+2*r)/3;
-			if(func(l1) < func(l2)) r = l2; else l = l1;
-		}
-
-		double x = l;
-		xf = x;
-		return func(x);
-	}
-
 }
