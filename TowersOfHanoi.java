@@ -1,7 +1,6 @@
-class BetterTowersOfHanoi {
+class TowersOfHanoi {
 	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		int n = sc.nextInt();
+		int n;
 		solve(n, 'A', 'B', 'C');
 	}
 	static void solve(int n, char start, char medium, char end){
