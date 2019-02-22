@@ -3,7 +3,9 @@ public class GaussianElimination {
 	static double[][] mat;
 	static double[] ans;
 	public static void main(String[] args) {
-		
+		mat = new double[n][n + 1];
+		ans = new double[n];
+		//set up equations in form coeff(x1) + coeff(x2) + coeff(x3) + ... = constant
 	}
 	static void solve(){
 		for(int j = 0; j < n - 1; ++j){
