@@ -6,3 +6,5 @@
 6) Important notes (Bidirectional edges v Unidirectional, xor properties, etc.)
 7) Floyd warshalls (kattis problem from last year in spencers lecture...)
 8) Fix seg tree... (add lazy value and segment addition, haybales from SI practice 2018 (might be a USACO problem))
+9) Centroid Decomp (race)
+10) Binary Lifting (???)
