@@ -8,3 +8,4 @@
 8) Fix seg tree... (add lazy value and segment addition, haybales from SI practice 2018 (might be a USACO problem))
 9) Centroid Decomp (race)
 10) Binary Lifting (???)
+11) Matrix Expo (Alien DNA)
