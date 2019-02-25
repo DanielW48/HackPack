@@ -1,37 +1,64 @@
-class SegmentTree {
-	public static void main (String[] args){
-	    int n = 10;
-	    node segTree = new node(1, n);
+public class segmentTree {
+	public static void main (String[] args) {
+	    int n;
+	    node seg = new node(1, n);
 	    
 	}
 	static class node{
-	    int lr, rr, m;
-	    long sum = 0;
+	    long li, ri, m;
+	    long sum, min, lazy = 0;
 	    node l = null, r = null;
-	    boolean leaf;
-	    node(int lrIn, int rrIn){
-		    lr = lrIn;
-		    rr = rrIn;
-		    m = (lr + rr) / 2;
-		    leaf = lr == rr;
-		    if(!leaf){
-			    l = new node(lr, m);
-			    r = new node(m + 1, rr);
-		    }
+	    node(long liIn, long riIn){
+	        li = liIn;
+	        ri = riIn;
+	        m = (li + ri) / 2;
+	        if(li != ri){
+	            l = new node(li, m);
+	            r = new node(m + 1, ri);
+	        }
 	    }
-	    void add(int idx, int v){
-		    sum += v;
-		    
-		    if(idx <= m) l.add(idx, v);
-		    else r.add(idx, v);
+	    void add(int s, int e, int v){
+	        if(s <= li && ri <= e){
+	            sum += (ri - li + 1) * v;
+	            min += v;
+	            lazy += v;
+	            return;
+	        }
+	        
+	        push();
+	        if(s <= m) l.add(s, e, v);
+	        if(e > m) r.add(s, e, v);
+	        sum = l.sum + r.sum;
+	        min = Math.min(l.min, r.min);
 	    }
-	    long getSum(int li, int ri){
-		    if(li <= lr && rr <= ri) return sum;
-            
-		    long out = 0;
-		    if(li <= m) out += l.getSum(li, ri);
-		    if(m + 1 <= ri) out += r.getSum(li, ri);
-		    return out;
+	    long getSum(int s, int e){
+	        if(s <= li && ri <= e) return sum;
+	        
+	        push();
+	        long out = 0;
+	        if(s <= m) out += l.getSum(s, e);
+	        if(e > m) out += r.getSum(s, e);
+	        return out;
+	    }
+	    long getMin(int s, int e){
+	        if(s <= li && ri <= e) return min;
+	        
+	        push();
+	        long out = Long.MAX_VALUE;
+	        if(s <= m) out = Math.min(out, l.getMin(s, e));
+	        if(e > m) out = Math.min(out, r.getMin(s, e));
+	        return out;
+	    }
+	    void push(){
+	        l.lazy += lazy;
+	        l.sum += (l.ri - l.li + 1) * lazy;
+	        l.min += lazy;
+	            
+	        r.lazy += lazy;
+	        r.sum += (r.ri - r.li + 1) * lazy;
+	        r.min += lazy;
+	        
+	        lazy = 0;
 	    }
 	}
 }
