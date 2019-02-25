@@ -1,4 +1,4 @@
-public class segmentTree {
+class segmentTree {
 	public static void main (String[] args) {
 	    int n;
 	    node seg = new node(1, n);
