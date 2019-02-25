@@ -6,5 +6,4 @@
 6) Important notes (Bidirectional edges v Unidirectional, xor properties, etc.)
 7) Floyd warshalls (kattis problem from last year in spencers lecture...)
 8) Centroid Decomp (race)
-9) Binary Lifting (tourists from SI practice 2018)
-10) Matrix Expo (Alien DNA)
+9) Matrix Expo (Alien DNA)
