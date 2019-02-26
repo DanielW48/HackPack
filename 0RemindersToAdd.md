@@ -3,5 +3,5 @@
 3) Convex Hull! (SI 2018 Contest 5, fence one)
 4) Important notes (Bidirectional edges v Unidirectional, xor properties, etc.)
 5) Floyd warshalls (kattis problem from last year in spencers lecture...)
-6) Centroid Decomp (race)
+6) Centroid Decomp (race, easiest from SI 2018 contest 4?)
 7) Matrix Expo (Alien DNA)
