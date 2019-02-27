@@ -15,13 +15,17 @@ class ConvexHull {
         ArrayDeque<point> stk = new ArrayDeque<>();
         stk.push(arr[0]);
         stk.push(arr[1]);
-        for(int i = 2; i < n; ++i){
+        floop : for(int i = 2; i < n; ++i){
             point curr = arr[i];
             point mid = stk.pop();
             point prev = stk.pop();
             
-            //change to <= to skip collinear points... doesn't always work?
-            while(crossProd(prev, mid, curr) < 0){
+            while(crossProd(prev, mid, curr) <= 0){
+                if(stk.isEmpty()){
+                    stk.push(prev);
+                    stk.push(curr);
+                    continue floop;
+                }
                 mid = prev;
                 prev = stk.pop();
             }
