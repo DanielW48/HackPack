@@ -1,4 +1,4 @@
-public class GaussianElimination {
+class GaussianElimination {
 	static int n;
 	static double[][] mat;
 	static double[] ans;
