@@ -1,4 +1,4 @@
-public class DSU2 {
+class DSU2 {
     static int n, m; //vertices, edges
     static int[] par, height;
     static ArrayDeque[] set;
