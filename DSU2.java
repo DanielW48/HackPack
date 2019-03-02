@@ -33,8 +33,7 @@ public class DSU2 {
         if(height[parA] > height[parB]) parA = parA ^ parB ^ (parB = parA);
         
         height[parB] += height[parA];
-        for(Object temp : set[parA]){
-            int curr = (int)temp;
+        for(int curr : (ArrayDeque<Integer>) set[parA]){
             par[curr] = parB;
             set[parB].push(curr);
         }
