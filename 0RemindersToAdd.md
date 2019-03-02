@@ -1,7 +1,3 @@
-1) Node Splitting Dijkstras (Wipeout from UCF online 2017)
-2) Longest Common Subsequence Speedup? (SPOJ)
-3) Convex Hull! (SI 2018 Contest 5, fence one)
-4) Important notes (Bidirectional edges v Unidirectional, xor properties, etc.)
-5) Floyd warshalls (kattis problem from last year in spencers lecture...)
-6) Centroid Decomp (race, easiest from SI 2018 contest 4?)
-7) Matrix Expo (Alien DNA)
+1) Longest Common Subsequence Speedup? (SPOJ)
+2) Convex Hull check!
+3) Important notes (Bidirectional edges v Unidirectional, xor properties, etc.)
