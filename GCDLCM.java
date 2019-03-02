@@ -1,4 +1,4 @@
-public class GCDLCM {
+class GCDLCM {
 	public static long gcd(long a, long b) {
 		while(b > 0) {
 			long temp = b;
