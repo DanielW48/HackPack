@@ -7,7 +7,7 @@ class LongestIncreasingSubsequence {
         out = 0;
         for(int i = 0; i < n; ++i){
             int curr = binSearch(arr[i]);
-            end[curr] = in;
+            end[curr] = arr[i];
             out = Math.max(out, curr);
         }
     }
