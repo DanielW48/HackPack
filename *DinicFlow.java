@@ -10,7 +10,6 @@ class dinicstest {
         System.out.println(test.dinic(0, 1));
     }
 }
-
 class DinicFlow {
     class Edge {
         int u, v, flow, cap;
@@ -22,7 +21,6 @@ class DinicFlow {
             cap = hold;
         }
     }
-
     void addEdge(int u, int v, int cap) {
         Edge addU = new Edge(u, v, cap);
         Edge addV = new Edge(v, u, 0);
@@ -32,7 +30,6 @@ class DinicFlow {
         adj[u].add( addU );
         adj[v].add( addV );
     }
-
     ArrayList<Edge>[] adj;
     int n;
     public DinicFlow(int n) {
@@ -42,7 +39,6 @@ class DinicFlow {
             adj[i] = new ArrayList<>();
         }
     }
-
     int[] level;
     boolean BFS(int source, int sink) {
         level = new int[n];
@@ -65,7 +61,6 @@ class DinicFlow {
 
         return level[sink] != -1;
     }
-
     int getFlow (int at, int flow, int sink, boolean[] blocked) {
         if(at == sink) return flow;
 
