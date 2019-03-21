@@ -4,6 +4,6 @@ class GCDLCM {
 		return gcd(b, a % b);
 	}
 	public static long lcm(long a, long b) {
-		return a * (b / gcd(a, b));
+		return a / gcd(a, b) * b;
 	}
 }
