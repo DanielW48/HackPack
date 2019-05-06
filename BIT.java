@@ -5,34 +5,24 @@ class BIT{
         n = nn;
         arr = new long[n + 1];
     }
-    void update(int idx, long v){
-        while(idx <= n){
-            arr[idx] += v;
-            idx += (idx & -idx);
-        }
+    void update(int i, long v){
+        if(i > n) return;
+        arr[i] += v;
+        update(i + (i & -i), v);
     }
-    long sum(int idx){
-        long out = 0;
-        while(idx > 0){
-            out += arr[idx];
-            idx -= (idx & -idx);
-        }
-        return out;
+    long sum(int i){
+        if(i < 1) return 0;
+        return arr[i] + sum(i - (i & -i));
     }
-    long getKth(int k) {
-        int lastK = n;
-        int pos = 0;
-        int pow2 = Integer.highestOneBit(lastK);
-        while(pow2 > 0){
-            if(pos + pow2 <= n){
-                if(arr[pos + pow2] >= k) lastK = Math.min(lastK, pos + pow2);
-                else{
-                    pos += pow2;
-                    k -= arr[pos];
-                }
+    int getKth(long k) {
+        int pow = Integer.highestOneBit(n), idx = 0;
+        while(pow > 0){
+            if(idx + pow <= n && arr[idx + pow] <= k){
+                idx += pow;
+                k -= arr[idx];
             }
-            pow2 >>= 1;
+            pow >>= 1;
         }
-        return lastK;
+        return idx;
     }
 }
