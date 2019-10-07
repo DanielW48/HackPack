@@ -26,8 +26,12 @@ class FordFulkerson {
 		if(idx == t) return min;
 		for(int i = 0; i < n; ++i) {
 			if(!seen[i] && cap[idx][i] > 0) {
-				int a = dfs(idx, Math.min(min, cap[idx][i]));
-				if(a > 0) return a;
+				int a = dfs(i, Math.min(min, cap[idx][i]));
+				if(a > 0){
+					cap[idx][i] -= a;
+					cap[i][idx] += a;
+					return a;
+				}
 			}
 		}
 		return 0;
