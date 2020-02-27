@@ -2,7 +2,8 @@ class Hashing {
 	static final long b1 = 27, b2 = 31, mod1 = 1_000_000_007, mod2 = 1_000_000_009;
 	static final long modi1 = 370_370_373, modi2 = 838_709_685;
 	static final int max = 500_000; // max string length
-	static final long[] pow1 = new long[max], pow2 = new long[max], powi1 = new long[max], powi2 = new long[max];
+	static final long[] pow1 = new long[max], pow2 = new long[max];
+	static final long[] powi1 = new long[max], powi2 = new long[max];
 	
 	static int n;
 	static int[] arr;
