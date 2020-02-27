@@ -21,7 +21,7 @@ class BIT{
                 idx += pow;
                 k -= arr[idx];
             }
-            pow >>= 1;
+            pow /= 2;
         }
         return idx;
     }
