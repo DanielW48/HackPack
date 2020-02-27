@@ -1,32 +1,40 @@
 class Hashing {
-    static long mod = 1_000_000_007, modi = 370_370_373;
-    static long mod2 = 1_000_000_009, modi2 = 296_296_299; //don't use
-    static long[] pow = new long[200_000];
-	public static void main (String[] args){
-	    pow[0] = 1;
-	    for(int i = 1; i < 200_000; ++i) pow[i] = (pow[i - 1] * 27) % mod;
-	    
+	static final long b1 = 27, b2 = 31, mod1 = 1_000_000_007, mod2 = 1_000_000_009, modi1 = 370_370_373, modi2 = 838_709_685;
+	static final int max = 500_000; // max string length
+	static final long[] pow1 = new long[max], pow2 = new long[max], powi1 = new long[max], powi2 = new long[max];
+	
+	static int n;
+	static int[] arr;
+	static long[] pre1, pre2;
+	public static void main(String[] args) {
+		pow1[0] = pow2[0] = powi1[0] = powi2[0] = 1;
+		for(int i = 1; i < max; ++i) {
+			pow1[i] = (pow1[i - 1] * b1) % mod1;
+			pow2[i] = (pow2[i - 1] * b2) % mod2;
+			powi1[i] = (powi1[i - 1] * modi1) % mod1;
+			powi2[i] = (powi2[i - 1] * modi2) % mod2;
+		}
+		
+		char[] in;
+		n = in.length;
+		arr = new int[n];
+		for(int i = 0; i < n; ++i) arr[i] = in[i] - 'a';
+		
+		pre1 = new long[n];
+		pre2 = new long[n];
+		pre1[0] = pre2[0] = arr[0];
+		for(int i = 1; i < n; ++i) {
+			pre1[i] = (pre1[i - 1] + arr[i] * pow1[i]) % mod1;
+			pre2[i] = (pre2[i - 1] + arr[i] * pow2[i]) % mod2;
+		}
+		
 	}
-	static long init(int s, int l, int[] arr){
-	    long out = 0;
-	    for(int i = s; i < s + l; ++i){
-	        out = (out + arr[i] * pow[i - s]) % mod;
-	    }
-	    return out;
+	static long sub1(int l, int r) {
+		long out = (pre1[r] - (l == 0 ? 0 : pre1[l - 1]) + mod1) % mod1;
+		return (out * powi1[l]) % mod1;
 	}
-	static long rollRight(long hash, int i, int l, int[] arr){
-	    hash = (hash - arr[i] + mod) % mod;                     //pop first
-	    hash = (hash * modi) % mod;                             //shift left
-	    hash = (hash + arr[i + l] * pow[l - 1]) % mod;          //add last
-	    return hash;
-	}
-	static long rollLeft(long hash, int i, int l, int[] arr){
-	    hash = (hash - arr[i + l] * pow[l - 1] + mod) % mod;    //pop last
-	    hash = (hash * 27) % mod;                               // shift right
-	    hash = (hash + arr[i]) % mod;                           //add first
-	    return hash;
-	}
-	static long addHash(long hash1, int l1, long hash2){
-	    return (hash1 + pow[l1] * hash2) % mod;
+	static long sub2(int l, int r) {
+		long out = (pre2[r] - (l == 0 ? 0 : pre2[l - 1]) + mod2) % mod2;
+		return (out * powi2[l]) % mod2;
 	}
 }
