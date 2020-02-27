@@ -21,7 +21,7 @@ class StronglyConnectedComponents {
         
         meta = new graph(numSccs);
         for(int i = 0; i < n; ++i){
-            for(int j : (ArrayDeque<Integer>) g.edges[i]){
+            for(int j : g.edges[i]){
                 if(id[i] != id[j]) meta.edges[id[i]].offer(id[j]);
             }
         }
@@ -31,7 +31,7 @@ class StronglyConnectedComponents {
         low[idx] = pre[idx] = preCt++;
         stk.push(idx);
         
-        for(int next : (ArrayDeque<Integer>) g.edges[idx]){
+        for(int next : g.edges[idx]){
             if(pre[next] == -1) dfs(next);
             
             low[idx] = Math.min(low[idx], low[next]);
@@ -50,7 +50,7 @@ class StronglyConnectedComponents {
     }
     static class graph{
         int n;
-        ArrayDeque[] edges;
+        ArrayDeque<Integer>[] edges;
         graph(int nn){
             edges = new ArrayDeque[n = nn];
             for(int i = 0; i < n; ++i) edges[i] = new ArrayDeque<>();
