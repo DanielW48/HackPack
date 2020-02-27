@@ -1,4 +1,4 @@
-class StronglyConnectedComponents {
+class SCCs {
     static int n, m, preCt = 0, numSccs = 0;
     static graph g, meta;
     static int[] pre, low, id;
