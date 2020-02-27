@@ -8,7 +8,7 @@ class LCA {
 		jmp = new int[m][n];
 		for(int[] z : jmp) Arrays.fill(z, -1);
 		height = new int[n];
-	    
+		
 		dfs(0, -1);
 		
 		for(int j = 1; j < m; ++j) {
