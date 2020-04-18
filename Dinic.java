@@ -1,35 +1,35 @@
 class Dinic {
-    final int max = 1_000_000_000;
-    int n, s, t;
-    ArrayDeque<fedge>[] fedges;
-    boolean[] blocked;
-    int[] d;
-    Dinic(int nn){
-        n = nn;
-        s = n++;
-        t = n++;
-        fedges = new ArrayDeque[n];
-        for(int i = 0; i < n; ++i) fedges[i] = new ArrayDeque<>();
-        blocked = new boolean[n];
-        d = new int[n];
-    }
-    void add(int u, int v, int cap, int flow) {
-        fedge ue = new fedge(v, cap, flow);
-        fedge ve = new fedge(u, 0, 0);
-        ue.rev = ve;
-        ve.rev = ue;
-        fedges[u].add(ue);
-        fedges[v].add(ve);
-    }
-    int flow() {
-        int out = 0;
-        while(bfs()) {
-            Arrays.fill(blocked, false);
-            out += dfs(s, max);
-        }
-        return out;
-    }
-    boolean bfs() {
+	final int max = 1_000_000_000;
+	int n, s, t;
+	ArrayDeque<fedge>[] fedges;
+	boolean[] blocked;
+	int[] d;
+	Dinic(int nn){
+		n = nn;
+		s = n++;
+		t = n++;
+		fedges = new ArrayDeque[n];
+		for(int i = 0; i < n; ++i) fedges[i] = new ArrayDeque<>();
+		blocked = new boolean[n];
+		d = new int[n];
+	}
+	void add(int u, int v, int cap, int flow) {
+		fedge ue = new fedge(v, cap, flow);
+		fedge ve = new fedge(u, 0, 0);
+		ue.rev = ve;
+		ve.rev = ue;
+		fedges[u].add(ue);
+		fedges[v].add(ve);
+	}
+	int flow() {
+		int out = 0;
+		while(bfs()) {
+			Arrays.fill(blocked, false);
+			out += dfs(s, max);
+		}
+		return out;
+	}
+	boolean bfs() {
 		Arrays.fill(d, -1);
 		ArrayDeque<Integer> ad = new ArrayDeque<>();
 		d[t] = 0;
