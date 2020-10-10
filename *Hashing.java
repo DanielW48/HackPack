@@ -4,18 +4,7 @@ class Hashing {
 	static final long[] basei = {370_370_373, 838_709_685};
 	static final int max = 500_000; // max string length
 	static final long[][] pow = new long[2][max + 1], powi = new long[2][max + 1];
-	public static void main(String[] args) {
-		setupM(0);
-		setupM(1);
-		
-		char[] temp = "nahdawg.".toCharArray();
-		int n = temp.length;
-		int[] arr = new int[n];
-		for(int i = 0; i < n; ++i) arr[i] = temp[i] - 'a' + 1;
-		
-		long[][] pre = getPre(arr);
-		// use pre for all functions
-	}
+	
 	static void setupM(int mi) {
 		pow[mi][0] = powi[mi][0] = 1;
 		for(int i = 1; i <= max; ++i) {
@@ -49,5 +38,18 @@ class Hashing {
 	}
 	static long[] cat(long[] a, int alen, long[] b) {
 		return new long[]{catM(a[0], alen, b[0], 0), catM(a[1], alen, b[1], 1)};
+	}
+	
+	public static void main(String[] args) {
+		setupM(0);
+		setupM(1);
+		
+		char[] temp = "nahdawg.".toCharArray();
+		int n = temp.length;
+		int[] arr = new int[n];
+		for(int i = 0; i < n; ++i) arr[i] = temp[i] - 'a' + 1;
+		
+		long[][] pre = getPre(arr);
+		// use pre for all functions
 	}
 }
