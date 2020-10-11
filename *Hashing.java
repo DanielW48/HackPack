@@ -33,11 +33,23 @@ class Hashing {
 		return a[0] == b[0] && a[1] == b[1];
 	}
 	// if needed
-	static long catM(long a, int alen, long b, int mi) {
-		return (a + pow[mi][alen] * b) % mod[mi];
+	static long catM(long a, int al, long b, int mi) {
+		return (a + pow[mi][al] * b) % mod[mi];
 	}
-	static long[] cat(long[] a, int alen, long[] b) {
-		return new long[]{catM(a[0], alen, b[0], 0), catM(a[1], alen, b[1], 1)};
+	static long[] cat(long[] a, int al, long[] b) {
+		return new long[]{catM(a[0], al, b[0], 0), catM(a[1], al, b[1], 1)};
+	}
+	static long addM(long a, int al, int v, int mi) {
+		return (a + v * pow[mi][al]) % mod[mi];
+	}
+	static long[] add(long[] a, int al, int v) {
+		return new long[]{addM(a[0], al, v, 0), addM(a[1], al, v, 1)};
+	}
+	static long popM(long a, int v, int mi) {
+		return ((a - v + mod[mi]) * basei[mi]) % mod[mi];
+	}
+	static long[] pop(long[] a, int v) {
+		return new long[]{popM(a[0], v, 0), popM(a[1], v, 1)};
 	}
 	
 	public static void main(String[] args) {
