@@ -1,7 +1,7 @@
 class Hashing {
 	// check base and max and DONT FORGET TO CALL SETUP IN MAIN
-	static final long[] base = {(int)1e9 + 1, (int)1e9 + 5}, mod = {(int)1e9 + 7, (int)1e9 + 9};
-	static final long[] basei = {833_333_339, 250_000_002};
+	static final long[] base = {999_999_001, 999_999_005}, mod = {999_999_929, 999_999_937};
+	static final long[] basei = {975_215_448, 129_828_318};
 	static final int max = 5_000_000; // max string length
 	static final long[][] pow = new long[2][max + 1], powi = new long[2][max + 1];
 	
@@ -33,6 +33,9 @@ class Hashing {
 		return a[0] == b[0] && a[1] == b[1];
 	}
 	// if needed
+	static long getLong(long[] a) {
+		return a[0] + 1_000_000_000 * a[1];
+	}
 	static long catM(long a, int al, long b, int mi) {
 		return (a + pow[mi][al] * b) % mod[mi];
 	}
