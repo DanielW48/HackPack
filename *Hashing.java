@@ -1,8 +1,8 @@
 class Hashing {
-	// don't forget to change the bases!
-	static final long[] base = {27, 31}, mod = {1_000_000_007, 1_000_000_009};
-	static final long[] basei = {370_370_373, 838_709_685};
-	static final int max = 500_000; // max string length
+	// check base and max and DONT FORGET TO CALL SETUP IN MAIN
+	static final long[] base = {(int)1e9 + 1, (int)1e9 + 5}, mod = {(int)1e9 + 7, (int)1e9 + 9};
+	static final long[] basei = {833_333_339, 250_000_002};
+	static final int max = 5_000_000; // max string length
 	static final long[][] pow = new long[2][max + 1], powi = new long[2][max + 1];
 	
 	static void setupM(int mi) {
