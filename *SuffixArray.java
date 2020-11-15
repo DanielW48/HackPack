@@ -115,4 +115,13 @@ class SuffixArray {
 	int min(int a, int b) {
 		return a < b ? a : b;
 	}
+	// returns the compareTo for two substrings
+	int compare(int l1, int r1, int l2, int r2) {
+		int len1 = r1 - l1 + 1, len2 = r2 - l2 + 1;
+		int smallLen = min(len1, len2);
+		
+		if(lcp(l1, l2) < smallLen) return idxOf[l1] - idxOf[l2];
+		if(len1 != len2) return len1 - len2;
+		return l1 - l2;
+	}
 }
