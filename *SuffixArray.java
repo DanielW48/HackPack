@@ -1,24 +1,41 @@
 class SuffixArray {
 	final char endChar = '\0';
-	final char delim = (char)(endChar + 1);
-	
+	final char delim = (char)1;
+
 	int n;
-	String s;
 	char[] arr;
-	
+
+	int[] firstIdx, map;
+
 	int[] suff, equiv, newVals, idxOf;
 	int k;
 	boolean sortChar;
-	
+
 	int[] lcp;
-	
+
 	int[] bitIdx;
 	int[][] rmq;
-	SuffixArray(String in){
-		s = in + endChar;
-		arr = s.toCharArray();
-		n = arr.length;
-		
+	SuffixArray(String ... in){
+		char[][] vals = new char[in.length][];
+		firstIdx = new int[in.length];
+		for(int i = 0; i < in.length; ++i) {
+			firstIdx[i] = n;
+			vals[i] = in[i].toCharArray();
+			n += vals[i].length + 1;
+		}
+
+		arr = new char[n];
+		map = new int[n];
+		Arrays.fill(map, -1);
+		for(int i = 0; i < in.length; ++i) {
+			for(int j = 0; j < vals[i].length; ++j) {
+				arr[firstIdx[i] + j] = vals[i][j];
+				map[firstIdx[i] + j] = i;
+			}
+			arr[firstIdx[i] + vals[i].length] = delim;
+		}
+		arr[n - 1] = endChar;
+
 		getSuff();
 		getLCP();
 		getRMQ();
@@ -29,36 +46,36 @@ class SuffixArray {
 		Collections.sort(temp, (a, b) -> {
 			return Character.compare(arr[a], arr[b]);
 		});
-		
+
 		suff = new int[n];
 		equiv = new int[n];
 		newVals = new int[n];
-		
+
 		for(int i = 0; i < n; ++i) suff[i] = temp.get(i);
-		
+
 		sortChar = true;
 		setEquiv();
 		sortChar = false;
-		
+
 		int[] buckIdx = new int[n];
 		for(k = 0; (1 << k) < n; ++k) {
 			for(int i = 0; i < n; ++i) suff[i] = (suff[i] - (1 << k) + n) % n;
-			 
+
 			// radix sort
 			int[] num = new int[n];
 			for(int a : suff) ++num[equiv[a]];
-			
+
 			buckIdx[0] = 0;
 			for(int i = 1; i < n; ++i) buckIdx[i] = buckIdx[i - 1] + num[i - 1];
-			
+
 			// place em in
 			for(int a : suff) newVals[buckIdx[equiv[a]]++] = a;
-			
+
 			for(int i = 0; i < n; ++i) suff[i] = newVals[i];
-			
+
 			setEquiv();
 		}
-		
+
 		idxOf = new int[n];
 		for(int i = 0; i < n; ++i) idxOf[suff[i]] = i;
 	}
@@ -80,23 +97,23 @@ class SuffixArray {
 		lcp = new int[n - 1];
 		for(int a = 0; a < n - 1; ++a) {
 			while(arr[a + curr] == arr[suff[idxOf[a] - 1] + curr]) ++curr;
-			
+
 			lcp[idxOf[a] - 1] = curr;
-			
+
 			if(curr > 0) --curr;
 		}
 	}
 	void getRMQ() {
-		bitIdx = new int[n + 1];
+		bitIdx = new int[n];
 		int m = 0;
-		for(int i = 1; i <= n; ++i) {
+		for(int i = 1; i < n; ++i) {
 			if(i == 1 << (m + 1)) ++m;
 			bitIdx[i] = m;
 		}
-		
+
 		rmq = new int[m + 1][n - 1];
 		for(int i = 0; i < n - 1; ++i) rmq[0][i] = lcp[i];
-		
+
 		for(int k = 1; k <= m; ++k) {
 			for(int i = 0; i < n - 1; ++i) {
 				if(i + (1 << k) < n) rmq[k][i] = min(rmq[k - 1][i], rmq[k - 1][i + (1 << (k - 1))]);
@@ -107,7 +124,11 @@ class SuffixArray {
 		int k = bitIdx[r - l + 1];
 		return min(rmq[k][l], rmq[k][r - (1 << k) + 1]);
 	}
+	// returns the LCP of suffix with index i and suffix with index j
 	int lcp(int i, int j) {
+		i = idxOf[i];
+		j = idxOf[j];
+
 		if(i == j) return Integer.MAX_VALUE / 2;
 		if(i > j) i = j ^ i ^ (j = i);
 		return rmq(i, j - 1);
@@ -119,7 +140,7 @@ class SuffixArray {
 	int compare(int l1, int r1, int l2, int r2) {
 		int len1 = r1 - l1 + 1, len2 = r2 - l2 + 1;
 		int smallLen = min(len1, len2);
-		
+
 		if(lcp(l1, l2) < smallLen) return idxOf[l1] - idxOf[l2];
 		if(len1 != len2) return len1 - len2;
 		return l1 - l2;
