@@ -1,6 +1,7 @@
 class SuffixArray {
-	final char endChar = '\0';
-	final char delim = (char)1;
+	final int max = Integer.MAX_VALUE / 2;
+	// change to -max, -max + 1 for integers
+	final char end = (char)0, delim = (char)1;
 
 	int n;
 	char[] arr;
@@ -17,24 +18,24 @@ class SuffixArray {
 	int[][] rmq;
 	SuffixArray(String ... in){
 		char[][] vals = new char[in.length][];
-		firstIdx = new int[in.length];
-		for(int i = 0; i < in.length; ++i) {
-			firstIdx[i] = n;
+		firstIdx = new int[vals.length];
+		for(int i = 0; i < vals.length; ++i) {
 			vals[i] = in[i].toCharArray();
+			firstIdx[i] = n;
 			n += vals[i].length + 1;
 		}
 
 		arr = new char[n];
 		map = new int[n];
 		Arrays.fill(map, -1);
-		for(int i = 0; i < in.length; ++i) {
+		for(int i = 0; i < vals.length; ++i) {
 			for(int j = 0; j < vals[i].length; ++j) {
 				arr[firstIdx[i] + j] = vals[i][j];
 				map[firstIdx[i] + j] = i;
 			}
 			arr[firstIdx[i] + vals[i].length] = delim;
 		}
-		arr[n - 1] = endChar;
+		arr[n - 1] = end;
 
 		getSuff();
 		getLCP();
@@ -129,7 +130,7 @@ class SuffixArray {
 		i = idxOf[i];
 		j = idxOf[j];
 
-		if(i == j) return Integer.MAX_VALUE / 2;
+		if(i == j) return max;
 		if(i > j) i = j ^ i ^ (j = i);
 		return rmq(i, j - 1);
 	}
