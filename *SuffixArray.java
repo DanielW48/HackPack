@@ -42,17 +42,15 @@ class SuffixArray {
 		getRMQ();
 	}
 	void getSuff() {
-		ArrayList<Integer> temp = new ArrayList<>();
-		for(int i = 0; i < n; ++i) temp.add(i);
-		Collections.sort(temp, (a, b) -> {
-			return Character.compare(arr[a], arr[b]);
-		});
+		Integer[] temp = new Integer[n];
+		for(int i = 0; i < n; ++i) temp[i] = i;
+		Arrays.sort(temp, (a, b) -> arr[a] - arr[b]);
 
 		suff = new int[n];
 		equiv = new int[n];
 		newVals = new int[n];
-
-		for(int i = 0; i < n; ++i) suff[i] = temp.get(i);
+		
+		for(int i = 0; i < n; ++i) suff[i] = temp[i];
 
 		sortChar = true;
 		setEquiv();
@@ -144,6 +142,7 @@ class SuffixArray {
 
 		if(lcp(l1, l2) < smallLen) return idxOf[l1] - idxOf[l2];
 		if(len1 != len2) return len1 - len2;
+		// if they are the same substring, break ties on starting index:
 		return l1 - l2;
 	}
 }
