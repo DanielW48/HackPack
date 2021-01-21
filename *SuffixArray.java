@@ -13,9 +13,8 @@ class SuffixArray {
 	boolean sortChar;
 
 	int[] lcp;
-
-	int[] bitIdx;
-	int[][] rmq;
+	
+	RMQ rmq;
 	SuffixArray(String ... in){
 		char[][] vals = new char[in.length][];
 		firstIdx = new int[vals.length];
@@ -103,25 +102,7 @@ class SuffixArray {
 		}
 	}
 	void getRMQ() {
-		bitIdx = new int[n];
-		int m = 0;
-		for(int i = 1; i < n; ++i) {
-			if(i == 1 << (m + 1)) ++m;
-			bitIdx[i] = m;
-		}
-
-		rmq = new int[m + 1][n - 1];
-		for(int i = 0; i < n - 1; ++i) rmq[0][i] = lcp[i];
-
-		for(int k = 1; k <= m; ++k) {
-			for(int i = 0; i < n - 1; ++i) {
-				if(i + (1 << k) < n) rmq[k][i] = min(rmq[k - 1][i], rmq[k - 1][i + (1 << (k - 1))]);
-			}
-		}
-	}
-	int rmq(int l, int r) {
-		int k = bitIdx[r - l + 1];
-		return min(rmq[k][l], rmq[k][r - (1 << k) + 1]);
+		rmq = new RMQ(lcp);
 	}
 	// returns the LCP of suffix with index i and suffix with index j
 	int lcp(int i, int j) {
@@ -130,7 +111,7 @@ class SuffixArray {
 
 		if(i == j) return max;
 		if(i > j) i = j ^ i ^ (j = i);
-		return rmq(i, j - 1);
+		return rmq.getMin(i, j - 1);
 	}
 	int min(int a, int b) {
 		return a < b ? a : b;
@@ -144,5 +125,33 @@ class SuffixArray {
 		if(len1 != len2) return len1 - len2;
 		// if they are the same substring, break ties on starting index:
 		return l1 - l2;
+	}
+	class RMQ {
+		int n, m;
+		int[] bitIdx;
+		int[][] rmq;
+		RMQ(int[] arr){
+			n = arr.length;
+			bitIdx = new int[n + 1];
+			
+			m = 0;
+			for(int i = 1; i <= n; ++i) {
+				if(i == 1 << (m + 1)) ++m;
+				bitIdx[i] = m;
+			}
+			
+			rmq = new int[m + 1][n];
+			for(int i = 0; i < n; ++i) rmq[0][i] = arr[i];
+			
+			for(int k = 1; k <= m; ++k) {
+				for(int i = 0; i < n; ++i) {
+					if(i + (1 << k) - 1 < n) rmq[k][i] = min(rmq[k - 1][i], rmq[k - 1][i + (1 << (k - 1))]);
+				}
+			}
+		}
+		int getMin(int l, int r) {
+			int k = bitIdx[r - l + 1];
+			return min(rmq[k][l], rmq[k][r - (1 << k) + 1]);
+		}
 	}
 }
