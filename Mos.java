@@ -5,10 +5,12 @@ class Mos {
     public static void main (String[] args){
         size = (int)Math.sqrt(n);
         
+        // currently algorithm will find the number of distinct integers in a range [l, r]
+        
         int[] freq = new int[1_000_001];
         freq[arr[0]] = 1;
         int l = 0, r = 0;
-        int ans = 1; //currently algorithm will find the number of distinct integers in a range [l, r]
+        int ans = 1;
         for(int i = 0; i < q; ++i){
             query curr = qs[i];
             int cl = curr.l, cr = curr.r;
@@ -47,8 +49,7 @@ class Mos {
             b = l / size;
         }
         public int compareTo(query in){
-            int d = b - in.b;
-            if(d != 0) return d;
+            if(b != in.b) return b - in.b;
             if(b % 2 == 0) return r - in.r;
             return in.r - r;
         }
