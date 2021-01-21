@@ -8,11 +8,9 @@ class Mos {
         // currently algorithm will find the number of distinct integers in a range [l, r]
         
         int[] freq = new int[1_000_001];
-        freq[arr[0]] = 1;
-        int l = 0, r = 0;
-        int ans = 1;
-        for(int i = 0; i < q; ++i){
-            query curr = qs[i];
+        int l = 0, r = -1;
+        int ans = 0;
+        for(query curr : qs){
             int cl = curr.l, cr = curr.r;
             
             while(l > cl){
