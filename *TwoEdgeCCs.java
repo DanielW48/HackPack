@@ -72,8 +72,7 @@ static class graph {
 		for(int i = 0; i < n; ++i) edges[i] = new ArrayDeque<>();
 	}
 	void addEdge(int a, int b) {
-		edges[a].add(new edge(b, 1));
-		edges[b].add(new edge(a, 1));
+		addEdge(a, b, 1);
 	}
 	void addEdge(int a, int b, int w) {
 		edges[a].add(new edge(b, w));
