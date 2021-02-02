@@ -22,7 +22,7 @@ static class EditDistance {
 	int[] a, b;
 	long[][] preA, preB;
 	int[][] dp, best;
-	int editDistance(char[] tempA, char[] tempB, int kk) {
+	int getEditDistance(char[] tempA, char[] tempB, int kk) {
 		// if using only arrays, replace parameters with a and b and remove this
 		a = new int[tempA.length];
 		for(int i = 0; i < tempA.length; ++i) a[i] = tempA[i] - 'a' + 1;
@@ -92,7 +92,10 @@ static class EditDistance {
 			}
 		}
 
-		if(outDist > k) return -1;
+		if(outDist > k) {
+			// the edit distance is more than k
+			return -1;
+		}
 		
 		// if only in need of distance, return outDist here
 		
