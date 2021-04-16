@@ -1,12 +1,12 @@
 class GCDLCM {
 	static long gcd(long a, long b) {
 		if(b > a) {
-			int temp = b;
+			long temp = b;
 			b = a;
 			a = temp;
 		}
 		while(b > 0) {
-			int temp = a % b;
+			long temp = a % b;
 			a = b;
 			b = temp;
 		}
